@@ -1,1 +1,3 @@
-# SpringBoot+Shiro+Jwt实现的一套后台管理系统
+# SpringBoot+Shiro+Jwt
+> 1.实现了用户的登陆验证
+
