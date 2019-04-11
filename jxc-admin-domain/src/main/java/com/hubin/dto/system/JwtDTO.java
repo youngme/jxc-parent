@@ -50,35 +50,4 @@ public class JwtDTO implements Serializable {
      */
     private String host;
 
-    public void setTokenId(String tokenId) {
-        this.tokenId = tokenId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public void setIssuer(String issuer) {
-        this.issuer = issuer;
-    }
-
-    public void setIssuedAt(Date issuedAt) {
-        this.issuedAt = issuedAt;
-    }
-
-    public void setAudience(String audience) {
-        this.audience = audience;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
-
-    public void setPerms(String perms) {
-        this.perms = perms;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
 }

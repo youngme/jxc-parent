@@ -2,7 +2,7 @@ package com.hubin.factor;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hubin.domain.system.SysUser;
-import com.hubin.common.pages.PageParam;
+import com.hubin.utils.pages.PageParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
@@ -19,6 +19,8 @@ import java.util.List;
  */
 @Mapper
 public interface SysUserFactor extends BaseMapper<SysUser> {
+
+    int insertUser(SysUser sysUser);
 
     List<SysUser> selectUserList() throws DataAccessException;
 
@@ -37,4 +39,6 @@ public interface SysUserFactor extends BaseMapper<SysUser> {
     List<SysUser> queryPage(PageParam pageParam);
 
     Long queryPageTotal();
+
+    List<SysUser> getUserByRole();
 }

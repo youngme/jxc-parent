@@ -4,8 +4,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubin.domain.system.SysRole;
 import com.hubin.factor.SysRoleFactor;
 import com.hubin.services.SysRoleService;
+import com.hubin.utils.PageUtils;
+import com.hubin.utils.ResultFormat;
+import com.hubin.utils.pages.PageParam;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,7 +29,9 @@ public class ISysRoleService extends ServiceImpl<SysRoleFactor, SysRole> impleme
 
     @Override
     public boolean addRole(SysRole role) {
-        return false;
+        role.setCreateTime(new Date());
+        role.setUpdateTime(new Date());
+        return baseMapper.insert(role)>0?Boolean.TRUE:Boolean.FALSE;
     }
 
     @Override
@@ -34,8 +40,8 @@ public class ISysRoleService extends ServiceImpl<SysRoleFactor, SysRole> impleme
     }
 
     @Override
-    public boolean deleteRoleByRoleId(Integer roleId) {
-        return false;
+    public boolean deleteRoleByRoleId(Long roleId) {
+        return ResultFormat.format(baseMapper.deleteById(roleId));
     }
 
     @Override
@@ -46,5 +52,12 @@ public class ISysRoleService extends ServiceImpl<SysRoleFactor, SysRole> impleme
     @Override
     public List<SysRole> getRoleList() {
         return baseMapper.selectRoles();
+    }
+
+    @Override
+    public PageUtils queryPage(PageParam pageParam) {
+        List<SysRole> list = baseMapper.queryPage(pageParam);
+        Long total = baseMapper.queryRolePageTotal();
+        return new PageUtils(total, list);
     }
 }

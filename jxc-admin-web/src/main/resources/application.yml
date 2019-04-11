@@ -11,11 +11,3 @@ spring:
       suffix: .html
 
 
-#session cache config
-#shiro:
-#  redis:
-#  sessionLive: 30
-#  sessionPrefix: shiro_redis_session:
-#  cacheLive: 30
-#  cachePrefix: shiro_redis_cache:
-#  kickoutPrefix: hiro_redis_kickout:

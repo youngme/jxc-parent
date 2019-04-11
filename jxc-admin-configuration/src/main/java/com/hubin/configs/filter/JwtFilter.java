@@ -1,7 +1,7 @@
 package com.hubin.configs.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.hubin.common.ResponseResult;
+import com.hubin.utils.ResponseResult;
 import com.hubin.configs.token.JwtToken;
 import com.hubin.services.AccessService;
 import com.hubin.utils.JwtUtils;
@@ -14,7 +14,9 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -41,11 +43,10 @@ public class JwtFilter extends AbstractPathMatchingFilter {
 
     private AccessService accessService;
 
-    public JwtFilter(StringRedisTemplate redisTemplate) {
+    public JwtFilter(StringRedisTemplate redisTemplate,AccessService accessService) {
         this.redisTemplate = redisTemplate;
+        this.accessService = accessService;
     }
-
-    //TODO AccountService
 
 
     @Override
@@ -69,19 +70,18 @@ public class JwtFilter extends AbstractPathMatchingFilter {
                     // refresh也过期则告知客户端JWT时间过期重新认证
 
                     // 当存储在redis的JWT没有过期，即refresh time 没有过期
-                    String username = WebUtils.toHttp(request).getHeader("username");
+                    String appId = WebUtils.toHttp(request).getHeader("username");
                     String jwt = WebUtils.toHttp(request).getHeader("authorization");
-                    String refreshJwt = redisTemplate.opsForValue().get("JWT-SESSION-" + username);
+                    String refreshJwt = redisTemplate.opsForValue().get("JWT-SESSION-" + appId);
                     if (null != refreshJwt && refreshJwt.equals(jwt)) {
                         // 重新申请新的JWT
                         // 根据username获取其对应所拥有的角色(这里设计为角色对应资源，没有权限对应资源)
-                        //String roles = accountService.loadAccountRole(username);
-                        //seconds为单位,10 hours
-                        long refreshPeriodTime = 36000L;
-                        String newJwt = JwtUtils.crateToken(UUID.randomUUID().toString(), username,
-                                "token-server", refreshPeriodTime >> 1, null, null, SignatureAlgorithm.HS512);
+                        String roles = accessService.getSysUserRole(appId);
+                        //seconds为单位,60s
+                        String newJwt = JwtUtils.crateToken(UUID.randomUUID().toString(), appId,
+                                "token-server", JwtUtils.EXPIRE_TIME_SECOND, roles, null, SignatureAlgorithm.HS512);
                         // 将签发的JWT存储到Redis： {JWT-SESSION-{username} , jwt}
-                        redisTemplate.opsForValue().set("JWT-SESSION-" + username, newJwt, refreshPeriodTime, TimeUnit.SECONDS);
+                        redisTemplate.opsForValue().set("JWT-SESSION-" + appId, newJwt, JwtUtils.EXPIRE_TIME_SECOND, TimeUnit.SECONDS);
 
 
                         RequestResponseUtil.responseWrite(JSON.toJSONString(ResponseResult.forbid("new token", newJwt)), response);

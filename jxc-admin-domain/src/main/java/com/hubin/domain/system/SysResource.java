@@ -15,7 +15,6 @@ import java.util.Date;
  * @date: 2019/3/23 22:47
  */
 @Data
-@ToString
 public class SysResource implements Serializable {
 
     private static final long serialVersionUID = -7005779194736273602L;

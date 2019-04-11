@@ -15,11 +15,28 @@
 		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
 		<result column="CREATE_WHERE" jdbcType="TINYINT" property="createWhere" />
+		<result column="role_id" jdbcType="BIGINT" property="roleId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+	</resultMap>
+	<resultMap id="UserResultMap" type="com.hubin.domain.system.SysUser">
+		<id column="uid" jdbcType="BIGINT" property="uid" />
+		<result column="real_name" jdbcType="VARCHAR" property="realName" />
+		<result column="role_id" jdbcType="BIGINT" property="roleId" />
 	</resultMap>
 	<sql id="Base_Column_List">
     uid, username, password, salt, real_name, avatar, phone, email, sex, status, CREATE_TIME,
     UPDATE_TIME, CREATE_WHERE
   </sql>
+	<sql id="Page_Column_List">
+    u.uid, u.username, u.real_name, u.avatar, u.phone, u.email, u.sex, u.status, u.CREATE_TIME,
+    u.UPDATE_TIME, u.CREATE_WHERE,r.id role_id,r.name
+  </sql>
+
+
+	<insert id="insertUser" useGeneratedKeys="true" keyProperty="uid" parameterType="com.hubin.domain.system.SysUser">
+        insert into sys_user(username,password,salt,real_name,phone,email,sex,status,create_time,update_time,create_where) values
+        (#{username},#{password},#{salt},#{realName},#{phone},#{email},#{sex},#{status},#{createTime},#{updateTime},#{createWhere})
+    </insert>
 
 	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
 		select
@@ -51,14 +68,20 @@
 		WHERE usr.username = #{username}
   </select>
 
-	<select id="queryPage" parameterType="com.hubin.common.pages.PageParam" resultMap="BaseResultMap">
+	<select id="queryPage" parameterType="com.hubin.utils.pages.PageParam" resultMap="BaseResultMap">
 		select
-		<include refid="Base_Column_List" />
-		from sys_user
-		where 1=1 limit #{page},#{limit}
+		<include refid="Page_Column_List" />
+		from sys_user u,sys_role r,sys_user_role ur
+		where u.uid=ur.user_id and ur.role_id = r.id limit #{page},#{limit}
 	</select>
 
 	<select id="queryPageTotal" resultType="java.lang.Long">
 		select count(1) from sys_user
 	</select>
+
+	<select id="getUserByRole" resultMap="UserResultMap">
+		select u.uid,u.real_name,r.id role_id from sys_user u,sys_user_role ur,sys_role r
+		where u.uid=ur.user_id and ur.role_id = r.id and (r.id = 106 or r.id = 107)
+	</select>
+
 </mapper>

@@ -37,8 +37,4 @@ public class SysRolePermission implements Serializable {
         return needRoles;
     }
 
-    @Override
-    public String toString() {
-        return "RolePermRule [url="+url+", needRoles="+needRoles+"]";
-    }
 }

@@ -37,8 +37,11 @@ public class JwtUtils {
 
     private static  CompressionCodecResolver codecResolver = new DefaultCompressionCodecResolver();
 
-    // 过期时间5分钟
-    private static final long EXPIRE_TIME = 5*60*1000;
+    // 过期时间1分钟
+    private static final Long EXPIRE_TIME = 1*60*1000L;
+
+    // 过期时间1分钟
+    public static final Long EXPIRE_TIME_SECOND = 60*1000L;
 
     public static final String SECRET_KEY = "Mis.WuDi.Is.My.Love.1994.03.27";
 
@@ -81,7 +84,9 @@ public class JwtUtils {
         jwtBuilder.setIssuedAt(new Date(currentTimeMillis));
         // 设置到期时间
         if (null != period) {
-            jwtBuilder.setExpiration(new Date(currentTimeMillis+EXPIRE_TIME));
+            jwtBuilder.setExpiration(new Date(currentTimeMillis+period));
+        }else{
+            jwtBuilder.setExpiration(new Date(currentTimeMillis+EXPIRE_TIME));//设置默认过期时间
         }
 
         if (!StringUtils.isEmpty(roles)) {

@@ -1,6 +1,8 @@
 package com.hubin.services;
 
 import com.hubin.domain.system.SysRole;
+import com.hubin.utils.PageUtils;
+import com.hubin.utils.pages.PageParam;
 
 import java.util.List;
 
@@ -20,9 +22,13 @@ public interface SysRoleService {
 
     boolean updateRole(SysRole role);
 
-    boolean deleteRoleByRoleId(Integer roleId);
+    boolean deleteRoleByRoleId(Long roleId);
 
     boolean deleteAuthorityRoleResource(Integer roleId, Integer resourceId);
 
     List<SysRole> getRoleList();
+
+    PageUtils queryPage(PageParam pageParam);
+
+
 }

@@ -29,12 +29,6 @@ public class PasswordToken implements AuthenticationToken {
         this.tokenKey = tokenKey;
 
     }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getPassword() {
-        return this.password;
-    }
 
     @Override
     public Object getPrincipal() {

@@ -1,6 +1,6 @@
 package com.hubin.controller;
 
-import com.hubin.common.ResponseResult;
+import com.hubin.utils.ResponseResult;
 import com.hubin.dto.system.AccountDTO;
 import com.hubin.services.AccessService;
 import com.hubin.utils.JwtUtils;
@@ -52,11 +52,10 @@ public class LoginController {
         // 根据appId获取其对应所拥有的角色(这里设计为角色对应资源，没有权限对应资源)
         String roles = accessService.getSysUserRole(appId);
         // 时间以秒计算,token有效刷新时间是token有效过期时间的2倍
-        long refreshPeriodTime = 36000L;
         String jwt = JwtUtils.crateToken(UUID.randomUUID().toString(), appId,
-                "token-server", refreshPeriodTime >> 1, roles, null, SignatureAlgorithm.HS512);
+                "token-server", JwtUtils.EXPIRE_TIME_SECOND, roles, null, SignatureAlgorithm.HS512);
         // 将签发的JWT存储到Redis： {JWT-SESSION-{appID} , jwt}
-        redisTemplate.opsForValue().set("JWT-SESSION-" + appId, jwt, refreshPeriodTime, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("JWT-SESSION-" + appId, jwt, JwtUtils.EXPIRE_TIME_SECOND, TimeUnit.SECONDS);
         AccountDTO accountDTO = accessService.accessSysUser(appId);
         if(Objects.isNull(accountDTO)){
             return ResponseResult.failed("登陆失败，用户名、密码不正确");

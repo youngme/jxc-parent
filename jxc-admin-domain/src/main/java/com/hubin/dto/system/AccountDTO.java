@@ -26,11 +26,6 @@ public class AccountDTO implements Serializable {
 
     private String salt;
 
-    public AccountDTO(String appId, String password, String salt) {
-        this.appId = appId;
-        this.password = password;
-        this.salt = salt;
-    }
 
     public AccountDTO(Long uid, String appId, String password, String salt) {
         this.uid = uid;
@@ -39,19 +34,4 @@ public class AccountDTO implements Serializable {
         this.salt = salt;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
 }

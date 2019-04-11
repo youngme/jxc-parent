@@ -1,8 +1,8 @@
 package com.hubin.configs.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.hubin.common.CodeMsgEnum;
-import com.hubin.common.ResponseResult;
+import com.hubin.utils.CodeMsgEnum;
+import com.hubin.utils.ResponseResult;
 import com.hubin.configs.token.PasswordToken;
 import com.hubin.utils.CommonUtil;
 import com.hubin.utils.IpUtil;

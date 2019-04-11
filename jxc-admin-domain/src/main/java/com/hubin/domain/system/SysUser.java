@@ -1,5 +1,7 @@
 package com.hubin.domain.system;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.ToString;
 
@@ -20,6 +22,7 @@ public class SysUser implements Serializable {
 
     private static final long serialVersionUID = -5577907904647536148L;
 
+    @TableId(value = "uid",type = IdType.AUTO)
     private Long uid;
 
     private String username;
@@ -36,29 +39,18 @@ public class SysUser implements Serializable {
 
     private String email;
 
-    private Byte sex;
+    private int sex;
 
-    private Byte status;
+    private int status;
 
     private Date createTime;
 
     private Date updateTime;
 
-    private Byte createWhere;
+    private Long createWhere;
 
-    public Long getUid() {
-        return uid;
-    }
+    private Long roleId;
 
-    public String getUsername() {
-        return username;
-    }
+    private String name;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
 }

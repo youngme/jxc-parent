@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hubin.factor.SysRoleFactor">
+    <resultMap id="BaseResultMap" type="com.hubin.domain.system.SysRole">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+    </resultMap>
+    <sql id="Base_Column_List">
+       id,code,name,status
+    </sql>
+
+    <select id="selectRoles" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+    </select>
+
+    <select id="queryPage" parameterType="com.hubin.utils.pages.PageParam" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_role where 1=1 limit #{page},#{limit}
+    </select>
+
+    <select id="queryRolePageTotal" resultType="java.lang.Long">
+        select count(1) from sys_role
+    </select>
+
+</mapper>

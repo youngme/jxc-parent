@@ -1,7 +1,7 @@
 package com.hubin.services;
 
 import com.hubin.domain.system.SysUser;
-import com.hubin.common.pages.PageParam;
+import com.hubin.utils.pages.PageParam;
 import com.hubin.utils.PageUtils;
 
 import java.util.List;
@@ -31,4 +31,12 @@ public interface SysUserService {
     List<SysUser> getNotAuthorityUserListByRoleId(Long roleId);
 
     PageUtils queryPage(PageParam pageParam);
+
+    boolean saveUser(SysUser sysUser);
+
+    boolean removeUser(Long uid);
+
+    boolean updateUser(SysUser sysUser);
+
+    List<SysUser> getUserByRole();
 }

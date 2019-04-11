@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hubin.factor.SysSalaryFactor">
+    <resultMap id="BaseResultMap" type="com.hubin.domain.system.SysSalary">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="uid" jdbcType="BIGINT" property="uid" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="attendance_days" jdbcType="TINYINT" property="attendanceDays" />
+        <result column="overtime_days" jdbcType="TINYINT" property="overtimeDays" />
+        <result column="base_pay" jdbcType="DECIMAL" property="basePay" />
+        <result column="seniority_pay" jdbcType="DECIMAL" property="seniorityPay" />
+        <result column="allwork_pay" jdbcType="DECIMAL" property="allworkPay" />
+        <result column="telephone_pay" jdbcType="DECIMAL" property="telephonePay" />
+        <result column="car_pay" jdbcType="DECIMAL" property="carPay" />
+        <result column="manage_pay" jdbcType="DECIMAL" property="managePay" />
+        <result column="assistant_pay" jdbcType="DECIMAL" property="assistantPay" />
+        <result column="exhibit_pay" jdbcType="DECIMAL" property="exhibitPay" />
+        <result column="overtime_pay" jdbcType="TINYINT" property="overtimePay" />
+        <result column="sales_task" jdbcType="DECIMAL" property="salesTask" />
+        <result column="sales_finish" jdbcType="DECIMAL" property="salesFinish" />
+        <result column="finish_rate" jdbcType="DECIMAL" property="finishRate" />
+        <result column="performance_pay" jdbcType="DECIMAL" property="performancePay" />
+        <result column="performance_bonus" jdbcType="DECIMAL" property="performanceBonus" />
+        <result column="salary_pay" jdbcType="DECIMAL" property="salaryPay" />
+        <result column="deduct_fund" jdbcType="DECIMAL" property="deductFund" />
+        <result column="practical_pay" jdbcType="DECIMAL" property="practicalPay" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+       id,uid,real_name,attendance_days,overtime_days,base_pay,seniority_pay,allwork_pay,telephone_pay,car_pay
+       ,manage_pay,assistant_pay,exhibit_pay,overtime_pay,sales_task,sales_finish,finish_rate,performance_pay,performance_bonus
+       ,salary_pay,deduct_fund,practical_pay,create_time,update_time
+    </sql>
+
+    <select id="getCountByMonth" resultType="java.lang.Integer">
+        select count(1) from sys_salary where date_format(create_time,'%Y-%m')=date_format(now(),'%Y-%m')
+    </select>
+    
+    <select id="queryPageList" resultMap="BaseResultMap" >
+        select 
+        <include refid="Base_Column_List" />
+        from sys_salary where date_format(create_time,'%Y-%m')=date_format(#{salary.createTime},'%Y-%m')
+        order by manage_pay desc,real_name desc
+        limit #{page.page},#{page.limit}
+    </select>
+    
+    <select id="salaryProcedure" resultType="java.lang.Integer" parameterType="java.lang.Long" statementType="CALLABLE">
+      {call salary_procedure(#{id,jdbcType=BIGINT,mode=IN})}
+    </select>
+
+</mapper>
