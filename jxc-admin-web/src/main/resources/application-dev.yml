@@ -12,7 +12,7 @@ server:
 spring:
   redis:
     database: 0
-    host: 39.107.123.144
+    host: ***.***.***.***
     port: 6301
     timeout: 6000
     pool:
@@ -29,9 +29,9 @@ spring:
       filters: stat
       driver-class-name: com.mysql.jdbc.Driver
       #基本属性
-      url: jdbc:mysql://47.106.190.10:3306/jxc?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
-      username: jtao
-      password: jtao.123
+      url: jdbc:mysql://***.***.***.***:3306/jxc?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+      username: ***
+      password: ***
       #配置初始化大小/最小/最大
       initial-size: 1
       min-idle: 1
