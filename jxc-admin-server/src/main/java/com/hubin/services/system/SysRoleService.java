@@ -1,4 +1,4 @@
-package com.hubin.services;
+package com.hubin.services.system;
 
 import com.hubin.domain.system.SysRole;
 import com.hubin.utils.pages.PageUtils;

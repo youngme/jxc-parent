@@ -27,10 +27,9 @@ import java.util.Map;
  */
 @Configuration
 //@EnableTransactionManagement
-public class DataSourceConfig{
+public class DefineDataSourceConfig {
 
     @Bean
-    @Primary
     @ConfigurationProperties("spring.datasource.druid.jxc")
     public DataSource jxcDataSource() {
         return DruidDataSourceBuilder.create().build();
@@ -42,6 +41,7 @@ public class DataSourceConfig{
         return DruidDataSourceBuilder.create().build();
     }
 
+    @Primary
     @Bean(name = "defineDataSource")
     public DataSource defineDataSource() {
         Map<String, DataSource> dataSourceMap = new HashMap<>();

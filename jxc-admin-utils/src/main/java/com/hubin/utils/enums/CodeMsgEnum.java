@@ -1,4 +1,4 @@
-package com.hubin.utils;
+package com.hubin.utils.enums;
 
 import java.util.HashMap;
 import java.util.Map;

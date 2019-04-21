@@ -1,5 +1,6 @@
 package com.hubin.utils;
 
+import com.hubin.utils.enums.CodeMsgEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -45,6 +46,11 @@ public class ResponseResult implements Serializable {
 
     public static ResponseResult failed(String msg) {
         ResponseResult result = new ResponseResult(HttpStatus.FAILED_DEPENDENCY.value(),msg,"");
+        return result;
+    }
+
+    public static ResponseResult errorUser() {
+        ResponseResult result = new ResponseResult(CodeMsgEnum.ERRORUSER.getcode(), CodeMsgEnum.ERRORUSER.getMsg(), "");
         return result;
     }
     public static ResponseResult forbid(String msg,Object data) {

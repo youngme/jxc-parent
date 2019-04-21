@@ -1,15 +1,21 @@
-package com.hubin.impl.system;
+package com.hubin.services.impl.system;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubin.domain.system.SysResource;
 import com.hubin.domain.system.SysRolePermission;
+import com.hubin.domain.system.SysRoleResource;
 import com.hubin.dto.system.SysResourceDTO;
 import com.hubin.factor.system.SysResourceFactor;
+import com.hubin.factor.system.SysRoleResourceFactor;
 import com.hubin.services.system.SysResourceService;
+import com.hubin.utils.ResultFormat;
 import com.hubin.utils.pages.PageUtils;
 import com.hubin.utils.pages.PageParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +28,10 @@ import java.util.List;
  */
 @Service
 public class ISysResourceService extends ServiceImpl<SysResourceFactor, SysResource> implements SysResourceService {
+
+    @Autowired
+    SysRoleResourceFactor roleResourceFactor;
+
     @Override
     public List<SysResource> getAuthorityMenusByUid(Long uid) {
         return baseMapper.selectAuthorityMenusByUid(uid);
@@ -33,8 +43,20 @@ public class ISysResourceService extends ServiceImpl<SysResourceFactor, SysResou
     }
 
     @Override
+    @Transactional
     public Boolean addMenu(SysResource menu) {
-        return null;
+        menu.setCreateTime(new Date());
+        menu.setUpdateTime(new Date());
+        if (ResultFormat.format(baseMapper.insert(menu))) {
+            SysRoleResource sysRoleResource = new SysRoleResource();
+            sysRoleResource.setCreateTime(new Date());
+            sysRoleResource.setUpdateTime(new Date());
+            sysRoleResource.setResourceId(menu.getId());
+            sysRoleResource.setRoleId(menu.getRoleId());
+            return ResultFormat.format(roleResourceFactor.insert(sysRoleResource));
+        }
+        return Boolean.FALSE;
+
     }
 
     @Override

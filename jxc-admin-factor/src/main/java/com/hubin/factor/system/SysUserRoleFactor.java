@@ -1,4 +1,4 @@
-package com.hubin.factor;
+package com.hubin.factor.system;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hubin.domain.system.SysUserRole;

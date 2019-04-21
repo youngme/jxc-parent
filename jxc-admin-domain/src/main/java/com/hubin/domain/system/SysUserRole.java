@@ -33,19 +33,4 @@ public class SysUserRole implements Serializable {
 
     private Date updateTime;
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

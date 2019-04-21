@@ -1,4 +1,4 @@
-package com.hubin.controller;
+package com.hubin.controller.system;
 
 import com.hubin.utils.ResponseResult;
 import com.hubin.dto.system.AccountDTO;

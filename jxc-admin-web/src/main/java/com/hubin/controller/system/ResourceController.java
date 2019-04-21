@@ -1,13 +1,14 @@
-package com.hubin.controller;
+package com.hubin.controller.system;
 
+import com.hubin.domain.system.SysResource;
 import com.hubin.dto.system.SysResourceDTO;
 import com.hubin.services.system.SysResourceService;
 import com.hubin.utils.ResponseResult;
 import com.hubin.utils.pages.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 /**
  * <br>
@@ -32,5 +33,10 @@ public class ResourceController {
     @GetMapping(value = "/pageList")
     public ResponseResult pageJson(PageParam pageParam, SysResourceDTO sysResourceDTO){
         return ResponseResult.success("数据获取成功",resourceService.queryPageList(pageParam,sysResourceDTO));
+    }
+
+    @PostMapping("/save")
+    public ResponseResult addPermission(SysResource sysResource) {
+        return ResponseResult.result(resourceService.addMenu(sysResource));
     }
 }

@@ -20,7 +20,8 @@ import java.util.Date;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class SysSalaryDTO{
+public class SysSalaryDTO implements Serializable{
 
+    private static final long serialVersionUID = -6995392078070270180L;
     Date createTime;
 }

@@ -3,8 +3,8 @@ package com.hubin.configs.filter;
 import com.hubin.configs.support.RolePermSupport;
 import com.hubin.configs.support.SpringContextHolder;
 import com.hubin.domain.system.SysRolePermission;
-import com.hubin.services.AccessService;
-import com.hubin.services.SysResourceService;
+import com.hubin.services.system.AccessService;
+import com.hubin.services.system.SysResourceService;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
@@ -56,9 +56,13 @@ public class ShiroFilterChainManager {
         PasswordFilter passwordFilter = new PasswordFilter();
         passwordFilter.setRedisTemplate(redisTemplate);
         filters.put("auth",passwordFilter);
+
         JwtFilter jwtFilter = new JwtFilter(redisTemplate,accessService);
         jwtFilter.setAccountService(accessService);
         filters.put("jwt",jwtFilter);
+
+        AccessPathFilter accessPathFilter = new AccessPathFilter();
+        filters.put("hasAccess",accessPathFilter);
         return filters;
     }
     /**
@@ -69,7 +73,7 @@ public class ShiroFilterChainManager {
     public Map<String,String> initGetFilterChain() {
         Map<String,String> filterChain = new LinkedHashMap<>();
         // -------------anon 默认过滤器忽略的URL
-        List<String> defalutAnon = Arrays.asList("/css/**","/js/**");
+        List<String> defalutAnon = Arrays.asList("/css/**","/js/**","/item/**");
         defalutAnon.forEach(ignored -> filterChain.put(ignored,"anon"));
         // -------------auth 默认需要认证过滤器的URL 走auth--PasswordFilter
         List<String> defalutAuth = Arrays.asList("/account/**");
@@ -86,6 +90,8 @@ public class ShiroFilterChainManager {
                 });
             }
         }
+        //-------------hasAccess 检查所有请求认证是否授权
+        filterChain.put("/**", "hasAccess");
         return filterChain;
     }
     /**

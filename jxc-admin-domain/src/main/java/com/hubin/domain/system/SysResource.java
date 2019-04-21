@@ -1,5 +1,7 @@
 package com.hubin.domain.system;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.ToString;
 
@@ -19,13 +21,14 @@ public class SysResource implements Serializable {
 
     private static final long serialVersionUID = -7005779194736273602L;
 
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     private String code;
 
     private String name;
 
-    private Integer parentId;
+    private Long parentId;
 
     private String uri;
 
@@ -40,4 +43,8 @@ public class SysResource implements Serializable {
     private Date createTime;
 
     private Date updateTime;
+
+    private Long roleId;
+
+    private String roleName;
 }

@@ -37,11 +37,11 @@ public class JwtUtils {
 
     private static  CompressionCodecResolver codecResolver = new DefaultCompressionCodecResolver();
 
-    // 过期时间1分钟
+    // 过期时间1小时
     private static final Long EXPIRE_TIME = 1*60*1000L;
 
-    // 过期时间1分钟
-    public static final Long EXPIRE_TIME_SECOND = 60*1000L;
+    // 过期时间2小时
+    public static final Long EXPIRE_TIME_SECOND = 2*60*60*1000L;
 
     public static final String SECRET_KEY = "Mis.WuDi.Is.My.Love.1994.03.27";
 

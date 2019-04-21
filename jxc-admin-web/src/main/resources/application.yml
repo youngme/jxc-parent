@@ -9,6 +9,9 @@ spring:
     view:
       prefix: /pages/
       suffix: .html
+  aop:
+    proxy-target-class: true
+    auto: true
 
 
 

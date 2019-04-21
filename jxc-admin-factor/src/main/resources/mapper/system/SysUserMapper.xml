@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hubin.factor.SysUserFactor">
+<mapper namespace="com.hubin.factor.system.SysUserFactor">
 	<resultMap id="BaseResultMap" type="com.hubin.domain.system.SysUser">
 		<id column="uid" jdbcType="BIGINT" property="uid" />
 		<result column="username" jdbcType="VARCHAR" property="username" />

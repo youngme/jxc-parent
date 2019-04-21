@@ -1,4 +1,4 @@
-package com.hubin.services;
+package com.hubin.services.system;
 
 import com.hubin.domain.system.SysSalary;
 import com.hubin.dto.system.SalaryExcelDTO;

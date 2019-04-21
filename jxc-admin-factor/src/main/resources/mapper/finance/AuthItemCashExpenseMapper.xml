@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hubin.factor.finance.AuthItemCashExpenseFactor">
+    <resultMap id="BaseResultMap" type="com.hubin.domain.finance.AuthItemCashExpense">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <id column="item_id" jdbcType="BIGINT" property="itemId" />
+        <result column="expense_name" jdbcType="VARCHAR" property="expenseName" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_person" jdbcType="VARCHAR" property="createPerson"/>
+        <result column="money_expense" jdbcType="DECIMAL" property="moneyExpense"/>
+        <result column="expense_type" jdbcType="TINYINT" property="expenseType"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+       id,item_id,expense_name,create_time,create_person,money_expense,expense_type,remark
+    </sql>
+
+
+    <select id="queryPage" parameterType="com.hubin.utils.pages.PageParam" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from auth_item_cash_expense where expense_type=#{expense.expenseType}
+        <if test="expense.createTime != null">
+            and date_format(create_time,'%Y-%m')=date_format(#{expense.createTime},'%Y-%m')
+        </if>
+        limit #{page.page},#{page.limit}
+    </select>
+
+    <select id="queryPageTotal" resultType="java.lang.Long">
+        select count(1) from auth_item_cash_expense where 1=1
+        <if test="createTime != null">
+            and date_format(create_time,'%Y-%m')=date_format(#{createTime},'%Y-%m')
+        </if>
+    </select>
+</mapper>

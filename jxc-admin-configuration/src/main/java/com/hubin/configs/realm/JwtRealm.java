@@ -35,6 +35,7 @@ public class JwtRealm extends AuthorizingRealm {
         return JwtToken.class;
     }
 
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 

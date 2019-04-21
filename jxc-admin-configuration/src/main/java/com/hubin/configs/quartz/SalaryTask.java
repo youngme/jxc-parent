@@ -1,6 +1,6 @@
 package com.hubin.configs.quartz;
 
-import com.hubin.services.SysSalaryService;
+import com.hubin.services.system.SysSalaryService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

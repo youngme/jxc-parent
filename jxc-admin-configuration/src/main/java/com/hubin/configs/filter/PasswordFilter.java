@@ -1,7 +1,7 @@
 package com.hubin.configs.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.hubin.utils.CodeMsgEnum;
+import com.hubin.utils.enums.CodeMsgEnum;
 import com.hubin.utils.ResponseResult;
 import com.hubin.configs.token.PasswordToken;
 import com.hubin.utils.CommonUtil;
@@ -92,7 +92,7 @@ public class PasswordFilter extends AccessControlFilter {
             }catch (AuthenticationException e) {
                 LOGGER.warn(authenticationToken.getPrincipal()+"::"+e.getMessage());
                 // 返回response告诉客户端认证失败
-                RequestResponseUtil.responseWrite(JSON.toJSONString(ResponseResult.failed("登陆失败,密码不正确")),response);
+                RequestResponseUtil.responseWrite(JSON.toJSONString(ResponseResult.errorUser()),response);
                 return false;
             }catch (Exception e) {
                 LOGGER.error(authenticationToken.getPrincipal()+"::认证异常::"+e.getMessage(),e);

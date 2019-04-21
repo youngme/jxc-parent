@@ -31,10 +31,6 @@
             <artifactId>jxc-admin-utils</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.hubin</groupId>
-            <artifactId>jxc-admin-domain</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>

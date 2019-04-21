@@ -23,6 +23,7 @@ import java.util.Iterator;
 public class RestPathMatchingFilterChainResolver extends PathMatchingFilterChainResolver {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestPathMatchingFilterChainResolver.class);
     private static final int NUM_2 = 2;
+    private static final String DEFAULT_PATH_SEPARATOR = "/";
 
     public RestPathMatchingFilterChainResolver() {
         super();
@@ -31,9 +32,10 @@ public class RestPathMatchingFilterChainResolver extends PathMatchingFilterChain
     public RestPathMatchingFilterChainResolver(FilterConfig filterConfig) {
         super(filterConfig);
     }
+    
 
     /**
-     * description TODO 重写filterChain匹配
+     *  重写filterChain匹配
      *
      * @param request 1
      * @param response 2
@@ -47,6 +49,10 @@ public class RestPathMatchingFilterChainResolver extends PathMatchingFilterChain
             return null;
         } else {
             String requestURI = this.getPathWithinApplication(request);
+            if (requestURI != null && requestURI.endsWith(DEFAULT_PATH_SEPARATOR)) {
+                requestURI = requestURI.substring(0, requestURI.length() - 1);
+            }
+
             Iterator var6 = filterChainManager.getChainNames().iterator();
 
             String pathPattern;

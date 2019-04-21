@@ -19,8 +19,14 @@ import javax.servlet.ServletResponse;
  */
 public abstract class AbstractPathMatchingFilter extends PathMatchingFilter {
 
+    private static final String DEFAULT_PATH_SEPARATOR = "/";
 
     public AbstractPathMatchingFilter() {
+    }
+
+    @Override
+    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
+        return super.preHandle(request, response);
     }
 
     /**
@@ -33,7 +39,14 @@ public abstract class AbstractPathMatchingFilter extends PathMatchingFilter {
     protected boolean pathsMatch(String path, ServletRequest request) {
         String requestURL = this.getPathWithinApplication(request);
         //需要解析出path中的url和httpMethod 例如： path: url==method eg: http://api/menu==GET
-        String [] strings = path.split("==");
+        if (requestURL != null && requestURL.endsWith(DEFAULT_PATH_SEPARATOR)) {
+            requestURL = requestURL.substring(0, requestURL.length() - 1);
+        }
+        // path: url==method eg: http://api/menu==GET   需要解析出path中的url和httpMethod
+        String[] strings = path.split("==");
+        if (strings[0] != null && strings[0].endsWith(DEFAULT_PATH_SEPARATOR)) {
+            strings[0] = strings[0].substring(0 , strings[0].length() - 1);
+        }
         if (strings.length <= 1) {//表示分割出来的只有URL
             return this.pathsMatch(strings[0], requestURL);
         } else {
@@ -70,6 +83,7 @@ public abstract class AbstractPathMatchingFilter extends PathMatchingFilter {
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         return this.isAccessAllowed(request, response, mappedValue);
     }
+
 
     /**
      * 保存request 请求

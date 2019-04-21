@@ -1,4 +1,4 @@
-package com.hubin.impl.system;
+package com.hubin.services.impl.system;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubin.domain.system.SysSalary;

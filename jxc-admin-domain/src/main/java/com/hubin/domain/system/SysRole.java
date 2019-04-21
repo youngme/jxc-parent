@@ -35,11 +35,4 @@ public class SysRole implements Serializable {
 
     private Date updateTime;
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

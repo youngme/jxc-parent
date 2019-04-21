@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -17,7 +18,8 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class SalaryExcelDTO {
+public class SalaryExcelDTO implements Serializable {
+    private static final long serialVersionUID = 6378002737833102629L;
     private String realName;//姓名
     private String attendanceDays;//出勤天数
     private String overtimeDays;//加班天数

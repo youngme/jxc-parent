@@ -3,7 +3,7 @@ package com.hubin.configs.filter;
 import com.alibaba.fastjson.JSON;
 import com.hubin.utils.ResponseResult;
 import com.hubin.configs.token.JwtToken;
-import com.hubin.services.AccessService;
+import com.hubin.services.system.AccessService;
 import com.hubin.utils.JwtUtils;
 import com.hubin.utils.RequestResponseUtil;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,9 +14,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -61,7 +59,12 @@ public class JwtFilter extends AbstractPathMatchingFilter {
             AuthenticationToken token = createJwtToken(request);
             try {
                 subject.login(token);
-                return checkRoles(subject, mappedValue);
+                if(!checkRoles(subject, mappedValue)){
+                    // 告知客户端JWT没有权限访问此资源
+                    RequestResponseUtil.responseWrite(JSON.toJSONString(ResponseResult.unAuthor()),response);
+                    return Boolean.FALSE;
+                }
+                return Boolean.TRUE;
             } catch (AuthenticationException authEx) {
                 // 如果是JWT过期
                 if (STR_EXPIRED.equals(authEx.getMessage())) {
@@ -120,7 +123,7 @@ public class JwtFilter extends AbstractPathMatchingFilter {
         }else {
             //  已经认证但未授权的情况
             // 告知客户端JWT没有权限访问此资源
-            RequestResponseUtil.responseWrite(JSON.toJSONString(ResponseResult.failed("没有权限")),response);
+            RequestResponseUtil.responseWrite(JSON.toJSONString(ResponseResult.unAuthor()),response);
         }
         // 过滤链终止
         return false;

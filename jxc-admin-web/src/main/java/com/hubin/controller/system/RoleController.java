@@ -1,4 +1,4 @@
-package com.hubin.controller;
+package com.hubin.controller.system;
 
 import com.hubin.domain.system.SysRole;
 import com.hubin.services.system.SysRoleService;

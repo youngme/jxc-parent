@@ -29,12 +29,5 @@ public class SysRolePermission implements Serializable {
      */
     private String needRoles;
 
-    public String getUrl() {
-        return url;
-    }
-
-    public String getNeedRoles() {
-        return needRoles;
-    }
 
 }

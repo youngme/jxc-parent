@@ -58,9 +58,6 @@ public class SysSalary implements Serializable {
                 .add(this.performanceBonus).add(this.overtimePay);
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public BigDecimal practicalPaysPlus(BigDecimal deduct) {
         return this.salaryPaysPlus().subtract(deduct);

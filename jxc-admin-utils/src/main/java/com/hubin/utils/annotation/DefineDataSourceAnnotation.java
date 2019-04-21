@@ -1,6 +1,5 @@
-package com.hubin.configs.annotation;
-
-import com.hubin.configs.datasource.DBTypeEnum;
+package com.hubin.utils.annotation;
+import com.hubin.utils.enums.DBTypeEnum;
 
 import java.lang.annotation.*;
 
@@ -12,8 +11,8 @@ import java.lang.annotation.*;
  * @description:
  * @date: 2019/4/15 10:00
  */
-@Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface DefineDataSourceAnnotation {
     DBTypeEnum value() default DBTypeEnum.defaultSource;

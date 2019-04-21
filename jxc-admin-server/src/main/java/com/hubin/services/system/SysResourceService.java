@@ -1,4 +1,4 @@
-package com.hubin.services;
+package com.hubin.services.system;
 
 import com.hubin.domain.system.SysResource;
 import com.hubin.domain.system.SysRolePermission;

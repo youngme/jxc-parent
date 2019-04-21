@@ -1,0 +1,25 @@
+spring:
+  aop:
+    proxy-target-class: true
+    auto: true
+  datasource:
+    name: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid相关配置
+    druid:
+      jxc:
+        #监控统计拦截的filters
+        #filters: stat
+        driver-class-name: com.mysql.jdbc.Driver
+        #基本属性
+        url: jdbc:mysql://47.106.190.10:3306/jxc?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+        username: jtao
+        password: jtao.123
+      finance:
+        #监控统计拦截的filters
+        #filters: stat
+        driver-class-name: com.mysql.jdbc.Driver
+        #基本属性
+        url: jdbc:mysql://47.106.190.10:3306/finance?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+        username: jtao
+        password: jtao.123

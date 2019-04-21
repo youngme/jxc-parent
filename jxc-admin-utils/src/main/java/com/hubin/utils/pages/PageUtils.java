@@ -1,4 +1,4 @@
-package com.hubin.utils;
+package com.hubin.utils.pages;
 
 import lombok.Getter;
 import lombok.Setter;
